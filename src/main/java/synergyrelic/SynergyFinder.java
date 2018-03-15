@@ -45,7 +45,6 @@ public class SynergyFinder {
     private static final float ANY_SKILL_MULTIPLIER = 0.1f;
     private static final float ANY_POWER_MULTIPLIER = 0.3f;
     private static final float WEAK_MULTIPLIER = 0.2f; // weak synergy: energy <-> x cards
-	private static final float WEAK_MULIPLIER = 0;
 
     // initialize the pool of available cards
     public SynergyFinder(ArrayList<AbstractCard> base_pool) {
@@ -215,7 +214,7 @@ public class SynergyFinder {
             case TwinStrike.ID: add_strength(weight); break;
             case Uppercut.ID: add_bigAttack_use(weight); add_vulnerable_use(weight); break;
             case Warcry.ID: add_plan_use(weight); break;
-            case Whirlwind.ID: add_bigAttack_use(weight); add_strength(weight); add_energy(weight*WEAK_MULIPLIER); break;
+            case Whirlwind.ID: add_bigAttack_use(weight); add_strength(weight); add_energy(weight*WEAK_MULTIPLIER); break;
             case WildStrike.ID: add_wound_use(weight); break;
 
             // green cards
@@ -226,11 +225,11 @@ public class SynergyFinder {
             case Alchemize.ID: add_exhaust_use(weight); break; // none
             case AllOutAttack.ID: add_bigAttack_use(weight); break;
             case AThousandCuts.ID: add_cheapCard(weight); break;
-            case Backflip.ID: add_draw_use(weight); break;
+            case Backflip.ID: add_draw_use(weight); add_block_use(weight); break;
             case Backstab.ID: add_cheapCard_use(weight); add_exhaust_use(weight); break;
             case Bane.ID: add_poison(weight); break;
             case BladeDance.ID: add_shiv_use(weight); break;
-            case Blur.ID: add_barricade_use(weight); break;
+            case Blur.ID: add_barricade_use(weight); add_block_use(weight); break;
             case BouncingFlask.ID: add_poison_use(weight); break;
             case BulletTime.ID: add_bigCard(weight); break;
             case Burst.ID: add_bigSkill(weight); break;
@@ -238,23 +237,23 @@ public class SynergyFinder {
             case Caltrops.ID: break; // maybe block?
             case Catalyst.ID: add_poison(weight); break;
             case Choke.ID: add_cheapCard(weight); add_bigAttack_use(weight); break;
-            case CloakAndDagger.ID: add_shiv_use(weight); break;
+            case CloakAndDagger.ID: add_shiv_use(weight); add_block_use(weight); break;
             case Concentrate.ID: add_energy_use(weight); add_discard_use(weight); break;
             case CorpseExplosion.ID: add_poison(weight); break; // not bigAttack_use
             case CripplingPoison.ID: add_poison_use(weight); break;
             case DaggerSpray.ID: add_strength(weight); break;
             case DaggerThrow.ID: add_discard_use(weight); break;
-            case Dash.ID: add_bigAttack_use(weight); break;
+            case Dash.ID: add_bigAttack_use(weight); add_block_use(weight); break;
             case DeadlyPoison.ID: add_poison_use(weight); break;
             case Defend_Green.ID: break;
-            case Deflect.ID: add_cheapSkill_use(weight); break;
+            case Deflect.ID: add_cheapSkill_use(weight); add_block_use(weight); break;
             case DieDieDie.ID: add_exhaust_use(weight); add_strength(weight); break;
             case Distraction.ID: break; //??
             case DodgeAndRoll.ID: add_dexterity(weight); break;
             case Doppelganger.ID: add_plan(weight); add_energy_use(weight); break;
             case EndlessAgony.ID: add_cheapAttack_use(weight); break;
             case Envenom.ID: add_cheapAttack(weight); add_poison_use(weight); break;
-            case EscapePlan.ID: add_cheapSkill_use(weight); break;
+            case EscapePlan.ID: add_cheapSkill_use(weight); add_block_use(weight); break;
             case Eviscerate.ID: add_discard(weight); break;
             case Expertise.ID: add_draw_use(weight); break;
             case Finisher.ID: add_cheapAttack(weight); break;
@@ -273,7 +272,7 @@ public class SynergyFinder {
             case NoxiousFumes.ID: add_poison_use(weight); break;
             case Outmaneuver.ID: add_energy_use(weight); break;
             case PhantasmalKiller.ID: add_plan(weight); break; //?
-            case PiercingWail.ID: break; //??
+            case PiercingWail.ID: add_debuf_use(weight); break; //??
             case PoisonedStab.ID: add_poison_use(weight); break;
             case Predator.ID: add_bigAttack_use(weight); break;
             case Prepared.ID: add_cheapSkill_use(weight); add_discard_use(weight); break;
@@ -695,12 +694,21 @@ public class SynergyFinder {
         add(ShrugItOff.ID,weight);
         add(TrueGrit.ID,weight);
         // green
-        // TODO
+        add(Backflip.ID,weight);
+        add(Blur.ID,weight);
+        add(CloakAndDagger.ID,weight);
+        add(Dash.ID,weight);
+        add(Deflect.ID,weight);
+        add(EscapePlan.ID,weight);
+        add(Survivor.ID,weight);
     }
     void add_block_use(float weight) {
+        weight *= WEAK_MULTIPLIER;
         add(Barricade.ID,weight);
         add(BodySlam.ID,weight);
         add(Juggernaut.ID,weight);
+        add(Blur.ID,weight);
+        add_dexterity(weight);
     }
     void add_barricade_use(float weight) {
         add(BodySlam.ID,weight);
