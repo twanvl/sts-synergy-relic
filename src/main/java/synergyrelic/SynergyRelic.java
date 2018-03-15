@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import basemod.BaseMod;
 import basemod.ModPanel;
-import basemod.ModButton;
 import basemod.interfaces.*;
 import synergyrelic.relics.*;
 import synergyrelic.ModToggleButton;
