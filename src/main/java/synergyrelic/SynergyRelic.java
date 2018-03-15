@@ -20,7 +20,7 @@ import synergyrelic.ModToggleButton;
 public class SynergyRelic implements PostInitializeSubscriber, PostCreateIroncladStartingRelicsSubscriber, PostCreateSilentStartingRelicsSubscriber {
     private static final String MODNAME = "Synergy Relic";
     private static final String AUTHOR = "twanvl";
-    private static final String DESCRIPTION = "v1.0.0 NL Adds synergistic card selection.";
+    private static final String DESCRIPTION = "v1.0.1 NL Adds synergistic card selection.";
 
     public static boolean startWithRelic = true;
     public static boolean combineWithQuestionCard = false;
